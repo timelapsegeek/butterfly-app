@@ -7,11 +7,13 @@ export default async function handler(req, res) {
       "api-key": process.env.MONGODB_DATA_API_KEY,
     },
   };
+
   const fetchBody = {
     dataSource: process.env.MONGODB_DATA_SOURCE,
     database: "social_butterfly",
     collection: "flutters",
   };
+
   const baseUrl = `${process.env.MONGODB_DATA_API_URL}/action`;
 
   try {
@@ -27,6 +29,7 @@ export default async function handler(req, res) {
         const readDataJson = await readData.json();
         res.status(200).json(readDataJson.documents);
         break;
+
       case "POST":
         const flutter = req.body;
         const insertData = await fetch(`${baseUrl}/insertOne`, {
@@ -39,6 +42,7 @@ export default async function handler(req, res) {
         const insertDataJson = await insertData.json();
         res.status(200).json(insertDataJson);
         break;
+
       case "PUT":
         const updateData = await fetch(`${baseUrl}/updateOne`, {
           ...fetchOptions,
@@ -55,6 +59,7 @@ export default async function handler(req, res) {
         const updateDataJson = await updateData.json();
         res.status(200).json(updateDataJson);
         break;
+
       case "DELETE":
         const deleteData = await fetch(`${baseUrl}/deleteOne`, {
           ...fetchOptions,
